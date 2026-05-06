@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タロット5枚引き＋ホロスコープ鑑定 ¥1,980 | Twinkle Star Oracle</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&display=swap');
+
+  :root {
+    --pink: #f0a8c0;
+    --pink-deep: #c8607a;
+    --gold: #d4a843;
+    --gold-light: #f0d080;
+    --pearl: #fdf6f0;
+    --indigo: #4a5ab0;
+    --indigo-light: #8a9be0;
+    --violet: #7b5ea7;
+    --violet-light: #b89fd4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, #080818 0%, #100828 50%, #080818 100%);
+    min-height: 100vh;
+    font-family: 'Noto Serif JP', serif;
+    color: var(--pearl);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 30%, rgba(74,90,176,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 70%, rgba(123,94,167,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 10%, rgba(212,168,67,0.07) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  .star {
+    position: absolute; background: white; border-radius: 50%;
+    animation: twinkle var(--d,3s) ease-in-out infinite;
+    animation-delay: var(--delay,0s); opacity: 0.4;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity:0.15; transform:scale(1); }
+    50% { opacity:0.9; transform:scale(1.4); }
+  }
+
+  .container { max-width: 620px; margin: 0 auto; padding: 40px 20px 80px; position: relative; z-index: 1; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 40px; animation: fadeDown 0.8s ease; }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  .brand { font-family:'Cormorant Garamond',serif; font-size:12px; letter-spacing:0.35em; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+  .title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; line-height:1.3; margin-bottom:6px; }
+  .title span { color:var(--indigo-light); font-style:italic; }
+  .subtitle { font-size:12px; color:rgba(253,246,240,0.5); letter-spacing:0.08em; line-height:1.9; margin-top:10px; }
+  .divider { width:80px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:16px auto; }
+
+  /* Steps */
+  .steps { display:flex; justify-content:center; gap:6px; margin-bottom:36px; animation:fadeUp 0.8s ease 0.2s both; flex-wrap:wrap; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .step { display:flex; align-items:center; gap:5px; font-size:10px; color:rgba(253,246,240,0.35); }
+  .step.active { color:var(--gold-light); }
+  .step.done { color:var(--violet-light); }
+  .step-num { width:20px; height:20px; border-radius:50%; border:1px solid currentColor; display:flex; align-items:center; justify-content:center; font-size:9px; }
+  .step.active .step-num { background:var(--gold); border-color:var(--gold); color:#080818; }
+  .step.done .step-num { background:var(--violet); border-color:var(--violet); color:white; }
+  .step-line { width:16px; height:1px; background:rgba(253,246,240,0.12); }
+
+  /* Card */
+  .card { background:rgba(253,246,240,0.03); border:1px solid rgba(74,90,176,0.25); border-radius:20px; padding:32px 28px; backdrop-filter:blur(12px); animation:fadeUp 0.8s ease 0.3s both; position:relative; overflow:hidden; }
+  .card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(138,155,224,0.5),transparent); }
+  .card-title { font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:300; color:var(--indigo-light); text-align:center; margin-bottom:6px; letter-spacing:0.05em; }
+  .card-desc { font-size:12px; color:rgba(253,246,240,0.45); text-align:center; line-height:1.8; margin-bottom:24px; }
+
+  /* Form */
+  .form-grid { display:grid; gap:14px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .form-group { display:flex; flex-direction:column; gap:6px; }
+  label { font-size:11px; color:rgba(253,246,240,0.5); letter-spacing:0.08em; }
+  label .req { color:var(--pink); margin-left:3px; font-size:10px; }
+  input, select, textarea {
+    background:rgba(253,246,240,0.04); border:1px solid rgba(74,90,176,0.25);
+    border-radius:10px; padding:11px 13px; color:var(--pearl);
+    font-family:'Noto Serif JP',serif; font-size:13px; outline:none;
+    transition:border-color 0.3s; width:100%;
+  }
+  input:focus, select:focus, textarea:focus { border-color:rgba(138,155,224,0.6); }
+  input::placeholder, textarea::placeholder { color:rgba(253,246,240,0.2); }
+  select option { background:#100828; color:var(--pearl); }
+  textarea { resize:none; height:75px; line-height:1.7; }
+
+  /* Question input */
+  .question-wrap { margin-top:4px; }
+  .question-label { font-size:12px; color:var(--indigo-light); margin-bottom:10px; text-align:center; }
+
+  /* Btn */
+  .btn { width:100%; padding:16px; border:none; border-radius:14px; font-family:'Noto Serif JP',serif; font-size:14px; letter-spacing:0.1em; cursor:pointer; transition:all 0.3s; margin-top:20px; position:relative; overflow:hidden; }
+  .btn-primary { background:linear-gradient(135deg,var(--indigo),var(--violet) 60%,var(--gold-light)); color:white; box-shadow:0 4px 20px rgba(74,90,176,0.3); }
+  .btn-primary:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 30px rgba(74,90,176,0.45); }
+  .btn-primary:disabled { opacity:0.4; cursor:not-allowed; }
+  .btn-primary::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,0.1) 50%,transparent 60%); animation:shimmer 3s ease infinite; }
+  @keyframes shimmer { 0%{transform:translateX(-100%) rotate(45deg)} 100%{transform:translateX(100%) rotate(45deg)} }
+
+  /* Loading */
+  .loading-wrap { display:none; text-align:center; padding:52px 0; }
+  .loading-crystal { font-size:56px; animation:float 2s ease-in-out infinite; display:block; margin-bottom:20px; filter:drop-shadow(0 0 20px rgba(74,90,176,0.8)); }
+  @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(8deg)} }
+  .loading-text { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--indigo-light); margin-bottom:10px; }
+  .loading-sub { font-size:12px; color:rgba(253,246,240,0.4); line-height:2.2; }
+  .loading-dots::after { content:''; animation:dots 1.5s steps(4,end) infinite; }
+  @keyframes dots { 0%{content:''} 25%{content:'・'} 50%{content:'・・'} 75%{content:'・・・'} }
+
+  /* Cards display */
+  .cards-display { display:none; animation:fadeUp 0.6s ease; }
+  .cards-row { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:24px; }
+  .tarot-card {
+    aspect-ratio: 2/3; border-radius:10px;
+    background:linear-gradient(135deg,#1a0a30,#2a1050);
+    border:1px solid rgba(138,155,224,0.4);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:6px 4px; text-align:center;
+    position:relative; overflow:hidden;
+    animation:cardReveal 0.5s ease both;
+    cursor:default;
+  }
+  .tarot-card::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(138,155,224,0.1),transparent);
+  }
+  @keyframes cardReveal {
+    from{opacity:0;transform:rotateY(90deg) scale(0.8)}
+    to{opacity:1;transform:rotateY(0deg) scale(1)}
+  }
+  .tarot-card:nth-child(1){animation-delay:0.1s}
+  .tarot-card:nth-child(2){animation-delay:0.25s}
+  .tarot-card:nth-child(3){animation-delay:0.4s}
+  .tarot-card:nth-child(4){animation-delay:0.55s}
+  .tarot-card:nth-child(5){animation-delay:0.7s}
+  .card-num { font-size:8px; color:var(--gold); letter-spacing:0.05em; margin-bottom:4px; }
+  .card-symbol { font-size:20px; margin-bottom:4px; filter:drop-shadow(0 0 4px rgba(138,155,224,0.6)); }
+  .card-name { font-size:8px; color:var(--indigo-light); line-height:1.3; }
+  .card-position { font-size:7px; color:rgba(253,246,240,0.4); margin-top:3px; }
+
+  /* Result */
+  .result-wrap { display:none; animation:fadeUp 0.6s ease; }
+  .result-header { text-align:center; margin-bottom:20px; }
+  .result-icon { font-size:38px; display:block; margin-bottom:10px; filter:drop-shadow(0 0 12px rgba(74,90,176,0.7)); }
+  .result-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--indigo-light); }
+  .result-name { font-size:11px; color:rgba(253,246,240,0.4); margin-top:4px; }
+
+  .section-title {
+    font-family:'Cormorant Garamond',serif; font-size:14px;
+    color:var(--gold-light); margin:18px 0 8px;
+    padding-left:10px; border-left:2px solid var(--gold);
+    letter-spacing:0.05em;
+  }
+
+  .result-text {
+    background:rgba(253,246,240,0.03); border:1px solid rgba(74,90,176,0.15);
+    border-radius:14px; padding:20px; font-size:13px; line-height:2;
+    color:rgba(253,246,240,0.82); white-space:pre-wrap; word-break:break-word;
+    max-height:420px; overflow-y:auto;
+  }
+
+  .action-btns { display:grid; gap:10px; margin-top:16px; }
+  .copy-btn {
+    width:100%; padding:13px; border:1px solid rgba(74,90,176,0.4);
+    border-radius:12px; background:transparent; color:var(--indigo-light);
+    font-family:'Noto Serif JP',serif; font-size:13px; cursor:pointer; transition:all 0.3s;
+  }
+  .copy-btn:hover { background:rgba(74,90,176,0.08); border-color:var(--indigo-light); }
+  .copy-btn.copied { color:var(--pink); border-color:var(--pink); }
+
+  .upsell-btn {
+    width:100%; padding:15px; border:none; border-radius:12px;
+    background:linear-gradient(135deg,rgba(200,96,122,0.3),rgba(212,168,67,0.2));
+    border:1px solid rgba(212,168,67,0.3); color:var(--gold-light);
+    font-family:'Noto Serif JP',serif; font-size:13px; letter-spacing:0.06em;
+    cursor:pointer; transition:all 0.3s; text-decoration:none; display:block; text-align:center;
+  }
+  .upsell-btn:hover { background:linear-gradient(135deg,rgba(200,96,122,0.4),rgba(212,168,67,0.3)); }
+
+  .retry-btn { width:100%; padding:11px; border:none; border-radius:10px; background:rgba(253,246,240,0.03); color:rgba(253,246,240,0.35); font-family:'Noto Serif JP',serif; font-size:11px; cursor:pointer; margin-top:8px; transition:all 0.3s; }
+  .retry-btn:hover { background:rgba(253,246,240,0.06); color:rgba(253,246,240,0.55); }
+
+  .error-msg { display:none; margin-top:12px; padding:12px 16px; background:rgba(200,96,122,0.1); border:1px solid rgba(200,96,122,0.3); border-radius:10px; font-size:12px; color:var(--pink); text-align:center; }
+
+  .payment-banner { background:rgba(212,168,67,0.08); border:1px solid rgba(212,168,67,0.25); border-radius:12px; padding:14px 18px; text-align:center; font-size:13px; color:var(--gold-light); margin-bottom:24px; animation:fadeUp 0.6s ease; }
+
+  .notice { margin-top:28px; padding:14px; background:rgba(74,90,176,0.05); border-radius:12px; font-size:11px; color:rgba(253,246,240,0.3); line-height:1.9; text-align:center; animation:fadeUp 0.8s ease 0.5s both; }
+
+  @media(max-width:480px){
+    .card{padding:22px 16px;}
+    .title{font-size:22px;}
+    .form-row{grid-template-columns:1fr;}
+    .cards-row{grid-template-columns:repeat(5,1fr); gap:5px;}
+    .card-symbol{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <div class="header">
+    <div class="brand">✦ Twinkle Star Oracle ✦</div>
+    <h1 class="title">タロット5枚引き<br><span>＋ホロスコープ鑑定</span></h1>
+    <div class="divider"></div>
+    <p class="subtitle">過去・現在・未来・課題・アドバイスを読み解き<br>星の配置と組み合わせた深層リーディング</p>
+  </div>
+
+  <div class="steps">
+    <div class="step active" id="step1"><div class="step-num">1</div><span>情報入力</span></div>
+    <div class="step-line"></div>
+    <div class="step" id="step2"><div class="step-num">2</div><span>カード選択</span></div>
+    <div class="step-line"></div>
+    <div class="step" id="step3"><div class="step-num">3</div><span>AI鑑定中</span></div>
+    <div class="step-line"></div>
+    <div class="step" id="step4"><div class="step-num">4</div><span>結果</span></div>
+  </div>
+
+  <div id="paymentBanner" style="display:none;" class="payment-banner">
+    ✨ お支払いが完了しました。以下の情報を入力してリーディングをお受けください。
+  </div>
+
+  <!-- Step1: Form -->
+  <div class="card" id="formCard">
+    <div class="card-title">🌟 基本情報の入力</div>
+    <p class="card-desc">ホロスコープ鑑定に使用します</p>
+
+    <div class="form-grid">
+      <div class="form-row">
+        <div class="form-group">
+          <label>お名前<span class="req">*</span></label>
+          <input type="text" id="name" placeholder="山田 花子">
+        </div>
+        <div class="form-group">
+          <label>性別<span class="req">*</span></label>
+          <select id="gender">
+            <option value="">選択</option>
+            <option value="女性">女性</option>
+            <option value="男性">男性</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>生年月日<span class="req">*</span></label>
+          <input type="date" id="birthdate">
+        </div>
+        <div class="form-group">
+          <label>出生時間（わかれば）</label>
+          <input type="time" id="birthtime">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>出生地（都道府県・市区町村）</label>
+        <input type="text" id="birthplace" placeholder="例：東京都渋谷区">
+      </div>
+
+      <div class="form-group">
+        <label>今一番聞きたいこと・テーマ<span class="req">*</span></label>
+        <textarea id="question" placeholder="例：仕事を変えるべき？　彼との関係は？　これからどう生きればいい？など、心に浮かぶことをそのままどうぞ"></textarea>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="startBtn" disabled>
+      🃏 カードを引く
+    </button>
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <!-- Step2: Cards display (brief) + Loading -->
+  <div class="card loading-wrap" id="loadingCard">
+    <div id="cardsRevealSection" style="display:none;">
+      <div class="card-title" style="margin-bottom:16px;">🃏 あなたのカード</div>
+      <div class="cards-row" id="cardsRow"></div>
+      <div style="font-size:12px; color:rgba(253,246,240,0.45); text-align:center; margin-bottom:20px;">カードの意味を読み解いています…</div>
+    </div>
+    <span class="loading-crystal">🔮</span>
+    <div class="loading-text">星とカードが語りかけています<span class="loading-dots"></span></div>
+    <div class="loading-sub">
+      タロット5枚のメッセージと<br>
+      あなたの星の配置を統合しています<br><br>
+      少々お待ちください
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-wrap" id="resultWrap">
+    <div class="card">
+      <div class="result-header">
+        <span class="result-icon">✨</span>
+        <div class="result-title">リーディング結果</div>
+        <div class="result-name" id="resultName">Twinkle Star Oracle より</div>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Cards summary -->
+      <div class="section-title">🃏 引いたカード</div>
+      <div class="cards-row" id="cardsRowResult" style="margin-bottom:16px;"></div>
+
+      <div class="section-title">🌟 タロット＆ホロスコープ総合リーディング</div>
+      <div class="result-text" id="resultText"></div>
+
+      <div class="action-btns">
+        <button class="copy-btn" id="copyBtn">📋 結果をコピー</button>
+        <a class="upsell-btn" href="https://buy.stripe.com/aFa5kw8Hs6C6dR3fRx33W02" target="_blank">
+          🌙 さらに深く知りたい方へ｜手相付き総合鑑定 ¥3,980
+        </a>
+      </div>
+      <button class="retry-btn" id="retryBtn">最初からやり直す</button>
+    </div>
+  </div>
+
+  <div class="notice">
+    鑑定結果はページを閉じると消えます<br>
+    必ずコピーまたはスクリーンショットで保存してください
+  </div>
+</div>
+
+<script>
+// Stars
+const sc = document.getElementById('stars');
+for(let i=0;i<70;i++){
+  const s=document.createElement('div'); s.className='star';
+  const sz=Math.random()*2+1;
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s;`;
+  sc.appendChild(s);
+}
+
+// Payment banner
+if(new URLSearchParams(window.location.search).get('payment')==='success'){
+  document.getElementById('paymentBanner').style.display='block';
+}
+
+// Tarot deck (大アルカナ22枚)
+const deck = [
+  {num:'0', name:'愚者', symbol:'🌟'},
+  {num:'I', name:'魔術師', symbol:'⚗️'},
+  {num:'II', name:'女教皇', symbol:'🌙'},
+  {num:'III', name:'女帝', symbol:'👑'},
+  {num:'IV', name:'皇帝', symbol:'⚔️'},
+  {num:'V', name:'法王', symbol:'🔑'},
+  {num:'VI', name:'恋人', symbol:'💕'},
+  {num:'VII', name:'戦車', symbol:'🏆'},
+  {num:'VIII', name:'力', symbol:'🦁'},
+  {num:'IX', name:'隠者', symbol:'🔦'},
+  {num:'X', name:'運命の輪', symbol:'🎡'},
+  {num:'XI', name:'正義', symbol:'⚖️'},
+  {num:'XII', name:'吊られた男', symbol:'🔄'},
+  {num:'XIII', name:'死神', symbol:'🌿'},
+  {num:'XIV', name:'節制', symbol:'🌊'},
+  {num:'XV', name:'悪魔', symbol:'🔗'},
+  {num:'XVI', name:'塔', symbol:'⚡'},
+  {num:'XVII', name:'星', symbol:'⭐'},
+  {num:'XVIII', name:'月', symbol:'🌕'},
+  {num:'XIX', name:'太陽', symbol:'☀️'},
+  {num:'XX', name:'審判', symbol:'🎺'},
+  {num:'XXI', name:'世界', symbol:'🌍'},
+];
+
+const positions = ['過去', '現在', '未来', '課題', 'アドバイス'];
+
+function drawCards() {
+  const shuffled = [...deck].sort(()=>Math.random()-0.5);
+  return shuffled.slice(0,5).map((card,i) => ({
+    ...card,
+    position: positions[i],
+    reversed: Math.random() > 0.7
+  }));
+}
+
+function renderCards(cards, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  cards.forEach((card, i) => {
+    const el = document.createElement('div');
+    el.className = 'tarot-card';
+    el.innerHTML = `
+      <div class="card-num">${card.num}</div>
+      <div class="card-symbol" style="${card.reversed?'transform:rotate(180deg)':''}">${card.symbol}</div>
+      <div class="card-name">${card.name}${card.reversed?'<br><span style="font-size:7px;color:var(--pink)">逆位置</span>':''}</div>
+      <div class="card-position">${card.position}</div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+// Validate
+function checkReady() {
+  const name = document.getElementById('name').value.trim();
+  const gender = document.getElementById('gender').value;
+  const birthdate = document.getElementById('birthdate').value;
+  const question = document.getElementById('question').value.trim();
+  document.getElementById('startBtn').disabled = !(name && gender && birthdate && question);
+}
+
+['name','gender','birthdate','question'].forEach(id => {
+  document.getElementById(id).addEventListener('input', checkReady);
+  document.getElementById(id).addEventListener('change', checkReady);
+});
+
+// Steps
+function setStep(n) {
+  [1,2,3,4].forEach(i => {
+    const el = document.getElementById(`step${i}`);
+    el.classList.remove('active','done');
+    if(i<n) el.classList.add('done');
+    else if(i===n) el.classList.add('active');
+  });
+}
+
+let drawnCards = [];
+
+document.getElementById('startBtn').addEventListener('click', async () => {
+  const name = document.getElementById('name').value.trim();
+  const gender = document.getElementById('gender').value;
+  const birthdate = document.getElementById('birthdate').value;
+  const birthtime = document.getElementById('birthtime').value || '不明';
+  const birthplace = document.getElementById('birthplace').value.trim() || '不明';
+  const question = document.getElementById('question').value.trim();
+
+  document.getElementById('formCard').style.display = 'none';
+  document.getElementById('loadingCard').style.display = 'block';
+  setStep(2);
+
+  // カードを引く
+  drawnCards = drawCards();
+
+  // カード表示
+  setTimeout(() => {
+    renderCards(drawnCards, 'cardsRow');
+    document.getElementById('cardsRevealSection').style.display = 'block';
+    setStep(3);
+  }, 800);
+
+  // カードのテキスト情報
+  const cardInfo = drawnCards.map(c =>
+    `【${c.position}】${c.num} ${c.name}${c.reversed?' (逆位置)':' (正位置)'}`
+  ).join('\n');
+
+  const prompt = `以下のお客様情報とタロットカードをもとに、タロット5枚引き＋ホロスコープ総合リーディング（¥1,980）を作成してください。
+
+【お客様情報】
+お名前：${name}様
+性別：${gender}
+生年月日：${birthdate}
+出生時間：${birthtime}
+出生地：${birthplace}
+ご質問・テーマ：${question}
+
+【引いたタロットカード】
+${cardInfo}
+
+【出力条件】
+1200〜1800文字
+やさしく・深く・寄り添う
+「当たってる」と感じさせる具体性を入れる
+LINE送信に適したテキスト形式
+
+【構成】
+① 冒頭：「${name}様のカードを引きました」から始め、全体の印象を一言で
+② カード5枚の総合読み：各カードの意味を「${question}」というテーマで統合して読む（各カードを個別に並べるのではなく、流れとして読む）
+③ ホロスコープからの補足：生年月日・出生地から見える星の特徴・今の運気・タイミング
+④ 統合メッセージ：タロットと星が一致して伝えていること
+⑤ 核心の一言：ドキッとするが優しい一言
+⑥ 具体的アドバイス：今すぐできること3つ
+⑦ クロージング：前向きに締める
+⑧ 次への導線（必ず入れる）：
+「今回のリーディングは、あなたの今この瞬間を映し出しています。手相と組み合わせることで、より深い人生全体の流れも見えてきます。手相付き総合鑑定（¥3,980）では、恋愛・仕事・金運を含めた本格鑑定をお届けしています🌙
+ご希望の方はこちらから👇
+https://buy.stripe.com/aFa5kw8Hs6C6dR3fRx33W02」`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!response.ok) throw new Error('鑑定に失敗しました');
+    const data = await response.json();
+    const result = data.content[0]?.text || '';
+
+    document.getElementById('loadingCard').style.display = 'none';
+    renderCards(drawnCards, 'cardsRowResult');
+    document.getElementById('resultText').textContent = result;
+    document.getElementById('resultName').textContent = `${name}様 | Twinkle Star Oracle`;
+    document.getElementById('resultWrap').style.display = 'block';
+    setStep(4);
+    document.getElementById('resultWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (err) {
+    document.getElementById('loadingCard').style.display = 'none';
+    document.getElementById('formCard').style.display = 'block';
+    setStep(1);
+    const em = document.getElementById('errorMsg');
+    em.textContent = '鑑定中にエラーが発生しました。もう一度お試しください。';
+    em.style.display = 'block';
+    console.error(err);
+  }
+});
+
+// Copy
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  const text = document.getElementById('resultText').textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✅ コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 結果をコピー'; btn.classList.remove('copied'); }, 3000);
+  } catch {
+    const range = document.createRange();
+    range.selectNode(document.getElementById('resultText'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  }
+});
+
+// Retry
+document.getElementById('retryBtn').addEventListener('click', () => {
+  ['name','birthtime','birthplace','question'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('gender').value='';
+  document.getElementById('birthdate').value='';
+  document.getElementById('analyzeBtn') && (document.getElementById('analyzeBtn').disabled=true);
+  document.getElementById('startBtn').disabled=true;
+  document.getElementById('resultWrap').style.display='none';
+  document.getElementById('formCard').style.display='block';
+  setStep(1);
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
